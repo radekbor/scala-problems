@@ -67,16 +67,104 @@ class ListTaskSolver {
   def pack[T](in: List[T]): List[List[T]] = {
     if (in.isEmpty) List(List())
     else {
-      val (group, tail) = in span { _ == in.head }
+      val (group, tail) = in span {
+        _ == in.head
+      }
       if (tail == Nil) List(group)
       else group :: pack(tail)
     }
   }
 
-  def encode[T](in: List[T]) : List[(Int, T)] = {
+  def encode[T](in: List[T]): List[(Int, T)] = {
     pack(in)
       .map(t => (t.length, t.head))
   }
 
+  def encode2[T](in: List[T]): List[Any] = {
+    encode(in).map({
+      case (1, x) => x
+      case x => x
+    })
+  }
 
+  def decode[T](in: List[(Int, T)]): List[T] = {
+    in.flatMap(x => {
+      List.fill(x._1)(x._2)
+    })
+  }
+
+  def encodeDirect[T](in: List[T]): List[(Int, T)] = {
+    val (first, rest) = in.span(_ == in.head)
+    (first.length, first.head) :: {
+      if (rest.isEmpty) Nil
+      else encodeDirect(rest)
+    }
+  }
+
+  def duplicate[T](in: List[T]): List[T] = {
+    duplicate(2, in)
+  }
+
+  def duplicate[T](times: Int, in: List[T]): List[T] = {
+    in flatMap (i => List.fill(times)(i))
+  }
+
+  def drop[T](times: Int, in: List[T]): List[T] = {
+    in.zipWithIndex
+      .filter(x => (x._2 + 1) % 3 != 0)
+      .map(_._1)
+  }
+
+  def split[T](times: Int, in: List[T]) = {
+
+    val l = in.zipWithIndex
+      .groupBy(x => {
+        if (x._2 < times) 0 else 1
+      })
+      .toList
+      .sortBy(x => x._1)
+      .map(x => {
+        x._2.map(x2 => x2._1)
+      })
+
+    (l.head, l(1))
+  }
+
+  // TODO make it faster
+  def slice[T](start: Int, end: Int, in: List[T]) = {
+
+    val l = in.zipWithIndex
+      .groupBy {
+        case x if x._2 < start => 0
+        case x if x._2 < end => 1
+        case _ => 2
+      }
+      .toList
+      .sortBy(x => x._1)
+      .map(x => {
+        x._2.map(x2 => x2._1)
+      })
+
+    l(1)
+  }
+
+  def rotate[T](x: Int, in: List[T]): List[T] = {
+    val res = split(x, in)
+    res._2 ++ res._1
+  }
+
+  def removeAt[T](x: Int, in: List[T]): (List[T], T) = {
+
+    val items = in.zipWithIndex
+      .groupBy(zi => {
+        if (zi._2 == x) 1 else 0
+      })
+      .map(zi => {
+        (zi._1, zi._2.map(_._1))
+      })
+
+    val head = items.getOrElse(0, List.empty[T])
+    val tail = items.getOrElse(1, List.empty[T]).head
+    (head, tail)
+  }
 }
