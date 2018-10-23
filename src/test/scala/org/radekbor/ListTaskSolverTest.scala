@@ -193,6 +193,15 @@ class ListTaskSolverTest extends FunSuite with Matchers {
       result should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
     }
 
+    test("19) Rotate reg") {
+      val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+      val solver = new ListTaskSolver()
+
+      val result = solver.rotate2(3, in)
+
+      result should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
+    }
+
     test("20) Remove nth") {
       val in = List('a, 'b, 'c, 'd)
       val solver = new ListTaskSolver()

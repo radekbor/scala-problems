@@ -153,6 +153,15 @@ class ListTaskSolver {
     res._2 ++ res._1
   }
 
+  def rotate2[T](x: Int, in: List[T]): List[T] = {
+    if (x == 0) {
+      in
+    } else {
+      val res = in.tail :+ in.head
+      rotate2(x - 1, res)
+    }
+  }
+
   def removeAt[T](x: Int, in: List[T]): (List[T], T) = {
 
     val items = in.zipWithIndex
