@@ -141,7 +141,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
     val result = solver.encodeDirect(in)
 
-    result should be (List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
+    result should be(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
   }
 
   test("14) should decode") {
@@ -151,64 +151,150 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
     val result = solver.duplicate(in)
 
-    result should be (List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd))
+    result should be(List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd))
   }
 
-    test("15) should decode") {
+  test("15) should decode") {
 
-      val in =  List('a, 'b, 'c, 'c, 'd)
-      val solver = new ListTaskSolver()
+    val in = List('a, 'b, 'c, 'c, 'd)
+    val solver = new ListTaskSolver()
 
-      val result = solver.duplicate(3, in)
+    val result = solver.duplicate(3, in)
 
-      result should be (List('a, 'a, 'a, 'b, 'b, 'b, 'c, 'c, 'c, 'c, 'c, 'c, 'd, 'd, 'd))
-    }
+    result should be(List('a, 'a, 'a, 'b, 'b, 'b, 'c, 'c, 'c, 'c, 'c, 'c, 'd, 'd, 'd))
+  }
 
-    test("17) drop nth") {
+  test("17) drop nth") {
 
-      val in =  List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-      val solver = new ListTaskSolver()
+    val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+    val solver = new ListTaskSolver()
 
-      val result = solver.drop(3, in)
+    val result = solver.drop(3, in)
 
-      result should be (List('a, 'b, 'd, 'e, 'g, 'h, 'j, 'k))
-    }
+    result should be(List('a, 'b, 'd, 'e, 'g, 'h, 'j, 'k))
+  }
 
-    test("18) Slice") {
+  test("18) Slice") {
 
-      val in =  List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-      val solver = new ListTaskSolver()
+    val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+    val solver = new ListTaskSolver()
 
-      val result = solver.slice(3, 7, in)
+    val result = solver.slice(3, 7, in)
 
-      result should be (List('d, 'e, 'f, 'g))
-    }
+    result should be(List('d, 'e, 'f, 'g))
+  }
 
-    test("19) Rotate") {
-      val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-      val solver = new ListTaskSolver()
+  test("19) Rotate") {
+    val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+    val solver = new ListTaskSolver()
 
-      val result = solver.rotate(3, in)
+    val result = solver.rotate(3, in)
 
-      result should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
-    }
+    result should be(List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
+  }
 
-    test("19) Rotate reg") {
-      val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-      val solver = new ListTaskSolver()
+  test("19) Rotate reg") {
+    val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
+    val solver = new ListTaskSolver()
 
-      val result = solver.rotate2(3, in)
+    val result = solver.rotate2(3, in)
 
-      result should be (List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
-    }
+    result should be(List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c))
+  }
 
-    test("20) Remove nth") {
-      val in = List('a, 'b, 'c, 'd)
-      val solver = new ListTaskSolver()
+  test("20) Remove nth") {
+    val in = List('a, 'b, 'c, 'd)
+    val solver = new ListTaskSolver()
 
-      val result = solver.removeAt(1, in)
+    val result = solver.removeAt(1, in)
 
-      result should be (List('a, 'c, 'd),'b)
-    }
+    result should be(List('a, 'c, 'd), 'b)
+  }
+
+  test("21) Add at nth") {
+    val in = List('a, 'b, 'c, 'd)
+    val solver = new ListTaskSolver()
+
+    val result = solver.addAt('new, 1, in)
+
+    result should be(List('a, 'new, 'b, 'c, 'd))
+  }
+
+  test("22) Add at nth") {
+    val solver = new ListTaskSolver()
+
+    val result = solver.range(4, 9)
+
+    result should be(List(4, 5, 6, 7, 8, 9))
+
+  }
+  /*
+  test("23) Random select") {
+    val solver = new ListTaskSolver()
+
+    val result = solver.randomSelect(3, List('a, 'b, 'c, 'd, 'f, 'g, 'h))
+
+
+    // TODO
+  }
+
+  test("24) Get N random") {
+    val solver = new ListTaskSolver()
+
+    val result = solver.getNRadom(3, 45)
+
+    // TODO
+  }
+
+  test("25) random permutation") {
+
+    val in = List('a, 'b, 'c, 'd, 'e, 'f)
+
+    val solver = new ListTaskSolver()
+
+    val result1 = solver.randomPermute(in)
+    val result2 = solver.randomPermute(in)
+
+    result1 should contain theSameElementsAs in
+    result2 should contain theSameElementsAs in
+    result1 should not be result2
+    // TODO
+  }
+
+test("26) Generate permuations") {
+
+  val solver = new ListTaskSolver()
+
+  val result = solver.combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
+
+  // TODO
+}
+
+test("27) Group the elements of a set into disjoint subsets.") {
+
+
+  // TODO
+}
+*/
+
+  test("28) Sorting a list of lists according to length of sublists.") {
+    val solver = new ListTaskSolver()
+
+    val in = (List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
+
+    val result = solver.sortByLengthOfSublist(in)
+
+    result should be(List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
+  }
+
+  test("29) Sorting a list of lists according to frequency.") {
+    val solver = new ListTaskSolver()
+
+    val in = List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
+
+    val result = solver.lsortFreq(in)
+    // TODO
+    //    result should be (List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
+  }
 
 }

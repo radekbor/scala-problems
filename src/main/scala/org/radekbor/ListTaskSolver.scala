@@ -176,4 +176,49 @@ class ListTaskSolver {
     val tail = items.getOrElse(1, List.empty[T]).head
     (head, tail)
   }
+
+  def addAt[T](n: T, x: Int, in: List[T]): List[T] = {
+
+    if (x == 0) {
+      n :: in
+    } else {
+      in.head :: addAt(n, x - 1, in.tail)
+    }
+  }
+
+  def range(start: Int, end: Int): List[Int] = {
+    if (start == end) {
+      List(end)
+    } else {
+      start :: range(start + 1, end)
+    }
+  }
+
+  def randomSelect[T](x: Int, in: List[T]): List[T] = {
+
+    // TODO
+    List(in.head)
+  }
+
+  def getNRadom(x: Int, max: Int) = {
+    List(max)
+  }
+
+  def randomPermute[T](in: List[T]): List[T] = {
+    in
+  }
+
+  def combinations[T](s: Int, in: List[T]): List[List[T]] = {
+    List(in)
+  }
+
+  def sortByLengthOfSublist[T](in: List[List[T]]): List[List[T]] = {
+    in.sortBy(_.length)
+  }
+
+  def lsortFreq[T](in: List[List[T]]): List[List[T]] = {
+    in.sortBy(_.length)
+  }
+
+
 }
