@@ -1,22 +1,21 @@
 package org.radekbor
 
-import org.scalatest.FunSuite
-import org.scalatest.matchers
-import org.scalatest._
+import org.scalatest.{FunSuite, _}
 
 class ListTaskSolverTest extends FunSuite with Matchers {
 
+  val solver = new ListTaskSolver()
+
   test("find last") {
     val in = List(1, 2, 3)
-    val solver = new ListTaskSolver()
 
     val result = solver.findLast(in)
 
     result should be(3)
   }
+
   test("find penultimate") {
     val in = List(1, 2, 3, 4, 5)
-    val solver = new ListTaskSolver()
 
     val result = solver.findPenultimate(in)
 
@@ -25,7 +24,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("1) find nth") {
     val in = List(1, 2, 3, 4, 5)
-    val solver = new ListTaskSolver()
 
     val result = solver.nth(in, 2)
 
@@ -34,7 +32,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("2) get length when 5 elements") {
     val in = List(1, 2, 3, 4, 5)
-    val solver = new ListTaskSolver()
 
     val result = solver.length(in)
 
@@ -43,7 +40,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("3) get length when 1 element") {
     val in = List(1)
-    val solver = new ListTaskSolver()
 
     val result = solver.length(in)
 
@@ -52,7 +48,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("4) should reverse") {
     val in = List(5, 4, 3, 2, 1)
-    val solver = new ListTaskSolver()
 
     val result = solver.revers(in)
 
@@ -61,7 +56,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("5) should return true when palidrome") {
     val in = List(5, 4, 3, 4, 5)
-    val solver = new ListTaskSolver()
 
     val result = solver.isPalindrome(in)
 
@@ -70,7 +64,6 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("6) should return false when not palidrome") {
     val in = List(5, 4, 3, 4, 1)
-    val solver = new ListTaskSolver()
 
     val result = solver.isPalindrome(in)
 
@@ -79,7 +72,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("7) should flatten map") {
     val in = List(List(1, 2), List(3, 4))
-    val solver = new ListTaskSolver()
+
 
     val result = solver.flatten(in)
 
@@ -88,7 +81,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("8) should compress list") {
     val in = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e')
-    val solver = new ListTaskSolver()
+
 
     val result = solver.compress(in)
 
@@ -97,7 +90,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("9) should pack list into sublist") {
     val in = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.pack(in)
 
@@ -107,7 +100,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("10) should encode") {
 
     val in = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.encode(in)
 
@@ -117,7 +110,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("11) should encode2") {
 
     val in = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.encode2(in)
 
@@ -127,7 +120,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("12) should decode") {
 
     val in = List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e))
-    val solver = new ListTaskSolver()
+
 
     val result = solver.decode(in)
 
@@ -137,7 +130,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("13) should decode") {
 
     val in = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.encodeDirect(in)
 
@@ -147,7 +140,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("14) should decode") {
 
     val in = List('a, 'b, 'c, 'c, 'd)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.duplicate(in)
 
@@ -157,7 +150,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("15) should decode") {
 
     val in = List('a, 'b, 'c, 'c, 'd)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.duplicate(3, in)
 
@@ -167,7 +160,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("17) drop nth") {
 
     val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.drop(3, in)
 
@@ -177,7 +170,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   test("18) Slice") {
 
     val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.slice(3, 7, in)
 
@@ -186,7 +179,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("19) Rotate") {
     val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.rotate(3, in)
 
@@ -195,7 +188,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("19) Rotate reg") {
     val in = List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.rotate2(3, in)
 
@@ -204,7 +197,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("20) Remove nth") {
     val in = List('a, 'b, 'c, 'd)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.removeAt(1, in)
 
@@ -213,7 +206,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
   test("21) Add at nth") {
     val in = List('a, 'b, 'c, 'd)
-    val solver = new ListTaskSolver()
+
 
     val result = solver.addAt('new, 1, in)
 
@@ -221,7 +214,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   }
 
   test("22) Add at nth") {
-    val solver = new ListTaskSolver()
+
 
     val result = solver.range(4, 9)
 
@@ -230,7 +223,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   }
   /*
   test("23) Random select") {
-    val solver = new ListTaskSolver()
+    
 
     val result = solver.randomSelect(3, List('a, 'b, 'c, 'd, 'f, 'g, 'h))
 
@@ -239,7 +232,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
   }
 
   test("24) Get N random") {
-    val solver = new ListTaskSolver()
+    
 
     val result = solver.getNRadom(3, 45)
 
@@ -250,7 +243,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
     val in = List('a, 'b, 'c, 'd, 'e, 'f)
 
-    val solver = new ListTaskSolver()
+    
 
     val result1 = solver.randomPermute(in)
     val result2 = solver.randomPermute(in)
@@ -263,7 +256,7 @@ class ListTaskSolverTest extends FunSuite with Matchers {
 
 test("26) Generate permuations") {
 
-  val solver = new ListTaskSolver()
+  
 
   val result = solver.combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
 
@@ -278,7 +271,7 @@ test("27) Group the elements of a set into disjoint subsets.") {
 */
 
   test("28) Sorting a list of lists according to length of sublists.") {
-    val solver = new ListTaskSolver()
+
 
     val in = (List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
 
@@ -288,7 +281,6 @@ test("27) Group the elements of a set into disjoint subsets.") {
   }
 
   test("29) Sorting a list of lists according to frequency.") {
-    val solver = new ListTaskSolver()
 
     val in = List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
 
@@ -296,5 +288,6 @@ test("27) Group the elements of a set into disjoint subsets.") {
     // TODO
     //    result should be (List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
   }
+
 
 }
