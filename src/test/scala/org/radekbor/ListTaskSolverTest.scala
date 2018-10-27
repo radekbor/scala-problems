@@ -273,7 +273,7 @@ test("27) Group the elements of a set into disjoint subsets.") {
   test("28) Sorting a list of lists according to length of sublists.") {
 
 
-    val in = (List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
+    val in = List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
 
     val result = solver.sortByLengthOfSublist(in)
 
