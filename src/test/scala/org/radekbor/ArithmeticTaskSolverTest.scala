@@ -68,4 +68,16 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
     }
   }
 
+  val primeFactorMultiplicity = List(
+    (List((2, 1), (3, 1)), 6),
+    (List((2,3)), 8),
+    (List((2, 4)), 16)
+  )
+
+  for(data <- primeFactorMultiplicity) {
+    test(s"36) Should return ${data._1} for prime factors of${data._2}") {
+      solver.primeFactorsMultiplicity(data._2) should be(data._1)
+    }
+  }
+
 }

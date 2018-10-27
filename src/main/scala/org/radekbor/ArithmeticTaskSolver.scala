@@ -66,4 +66,18 @@ class ArithmeticTaskSolver {
     primeFactorsInternal(a, data)
   }
 
+  def primeFactorsMultiplicity(a: Int): List[(Int, Int)] = {
+    def join(in: List[Int]): List[(Int, Int)] = {
+      if (in.isEmpty) {
+        List.empty[(Int, Int)]
+      } else {
+        val groups = in.span(_ == in.head)
+        (in.head, groups._1.length) :: join(groups._2)
+      }
+    }
+
+    val ints = primeFactors(a)
+    join(ints)
+  }
+
 }
