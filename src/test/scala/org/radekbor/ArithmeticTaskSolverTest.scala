@@ -48,6 +48,7 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
     (6, 7),
     (10, 11),
     (12, 13),
+    (8, 20),
   )
 
   for (data <- totientData) {
@@ -79,5 +80,16 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
       solver.primeFactorsMultiplicity(data._2) should be(data._1)
     }
   }
+
+  for (data <- totientData) {
+    test(s"37) Should return ${data._1} eulerThi ${data._2}") {
+      solver.eulerThi(data._2) should be(data._1)
+    }
+  }
+
+  test(s"38) Should return equal value for eulerThi and totient") {
+    solver.eulerThi(10090) should be (solver.totientOf(10090))
+  }
+
 
 }

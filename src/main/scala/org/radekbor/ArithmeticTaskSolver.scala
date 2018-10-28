@@ -80,4 +80,12 @@ class ArithmeticTaskSolver {
     join(ints)
   }
 
+  def eulerThi(a: Int): Double = {
+    val factors = primeFactorsMultiplicity(a)
+    factors.map(a => {
+        (a._1 - 1) * Math.pow(a._1, a._2 - 1)
+      })
+      .foldLeft(1.0)(_ * _)
+  }
+
 }
