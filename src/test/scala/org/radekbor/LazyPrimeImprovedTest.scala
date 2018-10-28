@@ -23,6 +23,14 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
     }
   }
 
+  test(s"31c) Prime stream") {
+    val stream = new ArithmeticTaskSolver().primes
+    for (i <- 0 to 10) {
+      println(s"$i: ${stream(i)}")
+    }
+
+  }
+
   val gcdData = List(
     (2, 4, 2),
     (5, 35, 15),
@@ -32,13 +40,13 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
 
   for (data <- gcdData) {
     test(s"32) Should return ${data._1} when gcd(${data._2}, ${data._3}") {
-      solver.gcd(data._2, data._3) should be(data._1)
+      solver.gcd(data._2, data._3) should be (data._1)
     }
   }
 
   for (data <- gcdData) {
     test(s"33) Should return ${data._1 == 1} when ${data._2} isCoprime to ${data._3}") {
-      solver.areCoprime(data._2, data._3) should be(data._1 == 1)
+      solver.areCoprime(data._2, data._3) should be (data._1 == 1)
     }
   }
 
@@ -63,7 +71,7 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
     (List(2, 2, 2, 2), 16)
   )
 
-  for (data <- primeFactors) {
+  for(data <- primeFactors) {
     test(s"35) Should return ${data._1} for prime factors of${data._2}") {
       solver.primeFactors(data._2) should be(data._1)
     }
@@ -71,11 +79,11 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
 
   val primeFactorMultiplicity = List(
     (List((2, 1), (3, 1)), 6),
-    (List((2, 3)), 8),
+    (List((2,3)), 8),
     (List((2, 4)), 16)
   )
 
-  for (data <- primeFactorMultiplicity) {
+  for(data <- primeFactorMultiplicity) {
     test(s"36) Should return ${data._1} for prime factors of${data._2}") {
       solver.primeFactorsMultiplicity(data._2) should be(data._1)
     }
@@ -88,28 +96,8 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
   }
 
   test(s"38) Should return equal value for eulerThi and totient") {
-    solver.eulerThi(10090) should be(solver.totientOf(10090))
+    solver.eulerThi(10090) should be (solver.totientOf(10090))
   }
 
-  test(s"39) Get all primes from range") {
-    val result = solver.primes.filter(_ >= 7).takeWhile(_ <= 31)
-    result should be(List(7, 11, 13, 17, 19, 23, 29, 31))
-  }
 
-  val goldbachData = List(
-    (4, (2, 2)),
-    (6, (3, 3)),
-    (8, (3, 5)),
-    (10, (3, 7)),
-    (12, (5, 7))
-  )
-
-  for (data <- goldbachData) {
-    val solver = new ArithmeticTaskSolver()
-
-    test(s"40) Should return ${data._2} for ${data._1}.goldbach") {
-      val result = data._1.Goldbach
-      result should be (data._2)
-    }
-  }
 }

@@ -18,11 +18,40 @@ object ArithmeticTaskSolver {
           .exists(x => value % x == 0)
       }
     }
+
+    def Goldbach: (Int, Int) = {
+      val solver = new ArithmeticTaskSolver()
+      val primes = solver.primes.takeWhile(_ < value).toList
+
+      def inner(primes1: List[Int], primes2: List[Int]): (Int, Int) = {
+        val sum = primes1.head + primes2.head
+        sum match {
+          case c if c == value => (primes1.head, primes2.head)
+          case c if c < value => inner(primes1.tail, primes2)
+          case c if c > value => inner(primes1, primes2.tail)
+        }
+      }
+
+      val result = inner(primes, primes.reverse)
+      if (result._1 > result._2) {
+        (result._2, result._1)
+      } else {
+        result
+      }
+    }
   }
 
 }
 
 class ArithmeticTaskSolver {
+
+  lazy val primes: Stream[Int] = {
+    def sieve(s: Stream[Int]): Stream[Int] = {
+      s.head #:: sieve(s.tail filter (_ % s.head != 0))
+    }
+
+    sieve(Stream.from(2))
+  }
 
   def gcd(a: Int, b: Int): Int = {
     if (a == b) {
@@ -83,8 +112,8 @@ class ArithmeticTaskSolver {
   def eulerThi(a: Int): Double = {
     val factors = primeFactorsMultiplicity(a)
     factors.map(a => {
-        (a._1 - 1) * Math.pow(a._1, a._2 - 1)
-      })
+      (a._1 - 1) * Math.pow(a._1, a._2 - 1)
+    })
       .foldLeft(1.0)(_ * _)
   }
 
