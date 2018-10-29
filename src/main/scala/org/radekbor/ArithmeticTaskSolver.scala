@@ -19,31 +19,47 @@ object ArithmeticTaskSolver {
       }
     }
 
+    private def goldabachInner(primes1: List[Int], primes2: List[Int]): (Int, Int) = {
+      val sum = primes1.head + primes2.head
+      sum match {
+        case c if c == value => (primes1.head, primes2.head)
+        case c if c < value => goldabachInner(primes1.tail, primes2)
+        case c if c > value => goldabachInner(primes1, primes2.tail)
+      }
+    }
+
     def Goldbach: (Int, Int) = {
       val solver = new ArithmeticTaskSolver()
       val primes = solver.primes.takeWhile(_ < value).toList
-
-      def inner(primes1: List[Int], primes2: List[Int]): (Int, Int) = {
-        val sum = primes1.head + primes2.head
-        sum match {
-          case c if c == value => (primes1.head, primes2.head)
-          case c if c < value => inner(primes1.tail, primes2)
-          case c if c > value => inner(primes1, primes2.tail)
-        }
-      }
-
-      val result = inner(primes, primes.reverse)
-      if (result._1 > result._2) {
-        (result._2, result._1)
-      } else {
-        result
+      val result = goldabachInner(primes, primes.reverse)
+      result match {
+        case x if x._1 > x._2 => (result._2, result._1)
+        case x if x._1 <= x._2 => (result._1, result._2)
       }
     }
+
   }
 
 }
 
 class ArithmeticTaskSolver {
+
+  def goldbachRange(start: Int, end: Int): List[(Int, Int)] = {
+
+    val realStart = if (start % 2 == 0) start else start + 1
+    val result = for (x <- Range.inclusive(realStart, end, 2)) yield ExtendedInt(x).Goldbach
+    result.toList
+  }
+
+  def goldbachRangeLimited(start: Int, end: Int, minPrimeValue: Int): scala.List[(Int, Int)] = {
+    val realStart = if (start % 2 == 0) start else start + 1
+
+    Range.inclusive(realStart, end, 2)
+      .map(x => ExtendedInt(x).Goldbach)
+      .filter(_ != null)
+      .filter(x => x._1 > 50 && x._2 > 50)
+      .toList
+  }
 
   lazy val primes: Stream[Int] = {
     def sieve(s: Stream[Int]): Stream[Int] = {

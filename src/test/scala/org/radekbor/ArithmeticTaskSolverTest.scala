@@ -105,11 +105,27 @@ class ArithmeticTaskSolverTest extends FunSuite with Matchers {
   )
 
   for (data <- goldbachData) {
-    val solver = new ArithmeticTaskSolver()
-
     test(s"40) Should return ${data._2} for ${data._1}.goldbach") {
       val result = data._1.Goldbach
-      result should be (data._2)
+      result should be(data._2)
     }
+  }
+
+  test("41) Should return goldbach list for range") {
+    val solver = new ArithmeticTaskSolver()
+
+    val result = solver.goldbachRange(9, 20)
+
+    result should be (List((3, 7), (5, 7), (3, 11), (3, 13), (5, 13), (3, 17)))
+
+  }
+
+  test("42) Should return goldbach with min prime value") {
+    val solver = new ArithmeticTaskSolver()
+
+    val result: List[(Int, Int)] = solver.goldbachRangeLimited(3, 2000, 50)
+
+    result should be (List((73, 919), (61, 1321), (67, 1789), (61, 1867)))
+
   }
 }
