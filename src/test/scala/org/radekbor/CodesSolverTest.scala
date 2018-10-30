@@ -18,4 +18,9 @@ class CodesSolverTest extends FunSuite with Matchers {
     solver.gray(3) should be(List("000", "001", "011", "010", "110", "111", "101", "100"))
   }
 
+  test("50) Huffman codes") {
+    val result: List[(String, String)] = solver.huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
+    result should be (List(("a", "0"), ("b", "101"), ("c", "100"), ("d", "111"), ("e", "1101"), ("f", "1100")))
+
+  }
 }
