@@ -23,11 +23,11 @@ class CodesSolver {
 
   def huffman(in: List[(String, Int)]): List[(String, String)] = {
 
-    def mergeTwo(tree1: Tree[String, Int], tree2: Tree[String, Int]): Tree[String, Int] = {
-      Tree("", tree1.t2 + tree2.t2, tree1, tree2)
+    def mergeTwo(tree1: InnerTree[String, Int], tree2: InnerTree[String, Int]): InnerTree[String, Int] = {
+      InnerTree("", tree1.t2 + tree2.t2, tree1, tree2)
     }
 
-    def merge(trees: List[Tree[String, Int]]): List[Tree[String, Int]] = {
+    def merge(trees: List[InnerTree[String, Int]]): List[InnerTree[String, Int]] = {
       if (trees.length > 1) {
         mergeTwo(trees.head, trees.tail.head) :: trees.tail.tail
       } else {
@@ -35,7 +35,7 @@ class CodesSolver {
       }
     }
 
-    def encode(tree: Tree[String, Int], prefix: String = ""): List[(String, String)] = {
+    def encode(tree: InnerTree[String, Int], prefix: String = ""): List[(String, String)] = {
       var result = List.empty[(String, String)]
       if (tree.left != null) {
         result = encode(tree.left, prefix + "0") ::: result
@@ -50,7 +50,7 @@ class CodesSolver {
       }
     }
 
-    def buildTree(trees: List[Tree[String, Int]]): List[Tree[String, Int]] = {
+    def buildTree(trees: List[InnerTree[String, Int]]): List[InnerTree[String, Int]] = {
       if (trees.length == 1) {
         trees
       } else {
@@ -59,10 +59,10 @@ class CodesSolver {
       }
     }
 
-    val trees = in.map(pair => Tree(pair._1, pair._2)).sortBy(_.t2)
+    val trees = in.map(pair => InnerTree(pair._1, pair._2)).sortBy(_.t2)
     val tree = buildTree(trees).head
     encode(tree).sortBy(_._1)
   }
 }
 
-case class Tree[T1, T2](t1: T1, t2: T2, left: Tree[T1, T2] = null, right: Tree[T1, T2] = null)
+case class InnerTree[T1, T2](t1: T1, t2: T2, left: InnerTree[T1, T2] = null, right: InnerTree[T1, T2] = null)
