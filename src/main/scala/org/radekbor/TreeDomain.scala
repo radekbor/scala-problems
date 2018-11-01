@@ -7,6 +7,7 @@ sealed abstract class Tree[+T] {
 
   def addNode[U >: T](x: U)(implicit ordered: T => Ordered[U]): Tree[U]
 
+  def leaves: Int
 }
 
 case class Node[T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -30,6 +31,13 @@ case class Node[T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
       Node(value, left, right.addNode(x))
     }
   }
+
+  override def leaves: Int = {
+    (left, right) match {
+      case (End, End) => 1
+      case _ => left.leaves + right.leaves
+    }
+  }
 }
 
 case object End extends Tree[Nothing] {
@@ -47,6 +55,8 @@ case object End extends Tree[Nothing] {
   override def addNode[U >: Nothing](x: U)(implicit ordered: Nothing => Ordered[U]): Tree[U] = {
     Node(x)
   }
+
+  override def leaves: Int = 0
 }
 
 object Node {

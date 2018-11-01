@@ -62,5 +62,24 @@ class TreeTest extends FunSuite with Matchers {
 
   }
 
+  test("61a) Count leaves") {
+    val tree = Tree.fromList(3)
+
+    tree.leaves should be (1)
+  }
+
+  test("61b) Count leaves") {
+    val tree = Tree.fromList(3, 2)
+
+    tree.leaves should be (1)
+  }
+
+
+  test("61c) Count leaves") {
+    val tree = Tree.fromList(3, 1, 2, 4)
+
+    tree.leaves should be (2)
+  }
+
 
 }
