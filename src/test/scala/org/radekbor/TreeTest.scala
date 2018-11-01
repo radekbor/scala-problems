@@ -92,5 +92,17 @@ class TreeTest extends FunSuite with Matchers {
     tree.allLeaves should be (List(2, 4))
   }
 
+  test("62a) Internal Nodes") {
+    val tree = Tree.fromList(3)
+
+    tree.internalNodes should be (Nil)
+  }
+
+  test("62b) Internal Nodes") {
+    val tree = Tree.fromList(3, 1, 2, 4)
+    println(tree)
+    tree.internalNodes should be (List(3, 1))
+  }
+
 
 }

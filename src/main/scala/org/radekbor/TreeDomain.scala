@@ -10,6 +10,8 @@ sealed abstract class Tree[+T] {
   def leaves: Int
 
   def allLeaves: List[T]
+
+  def internalNodes: List[T]
 }
 
 case class Node[T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -48,6 +50,12 @@ case class Node[T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
     }
   }
 
+  override def internalNodes: List[T] = {
+    (left, right) match {
+      case (End, End) => List.empty
+      case _ => value :: left.internalNodes ::: right.internalNodes
+    }
+  }
 }
 
 case object End extends Tree[Nothing] {
@@ -69,6 +77,8 @@ case object End extends Tree[Nothing] {
   override def leaves: Int = 0
 
   override def allLeaves: List[Nothing] = List.empty
+
+  override def internalNodes: List[Nothing] = List.empty
 }
 
 object Node {
