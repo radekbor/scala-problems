@@ -39,5 +39,28 @@ class TreeTest extends FunSuite with Matchers {
     tree.isSymetric should be (false)
   }
 
+  test("57a) Add node test") {
+    val tree = Node(2).addNode(1).addNode(3)
+
+    tree should be (Node(2, Node(1), Node(3)))
+
+  }
+
+  test("57b) Add node test") {
+    val tree = Node(3).addNode(1).addNode(2)
+
+    tree should be (Node(3, Node(1, End, Node(2))))
+
+  }
+
+  test("57) From List") {
+    val tree = Tree.fromList(3, 1, 2, 4)
+
+    val expected = Node(3, Node(1, End, Node(2)), Node(4))
+
+    tree should be (expected)
+
+  }
+
 
 }
